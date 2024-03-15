@@ -1,17 +1,18 @@
 // View.jsx
 import React from 'react';
-import { useMenu } from '../context/MenuContext'; // Import the hook
+import { Link } from 'react-router-dom';
+import { useMenu } from '../context/MenuContext';
 
 const View = () => {
-  const { menuItems } = useMenu(); // Use the context
+  const { menuItems } = useMenu();
 
   return (
     <div>
       <h2 className="text-2xl font-bold">View Items</h2>
       <ul>
-        {menuItems.map((item, index) => (
-          <li key={index}>
-            <h3 className="text-xl">{item.itemName}</h3>
+        {menuItems.map((item) => (
+          <li key={item.id}>
+            <h3>{item.itemName}</h3>
             <p>{item.itemDescription}</p>
             <p>${item.itemPrice}</p>
           </li>
