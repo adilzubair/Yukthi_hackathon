@@ -18,7 +18,7 @@ client.initialize();
 
 
 const openai = new OpenAI({
-    apiKey: process.env.SECRET_KEY // This is also the default, can be omitted if the API key is set in the environment variables
+    apiKey: process.env.SECRET_KEY // This is also the default, can be omitted if the API key is set in the environment variables
   });
 
 async function runCompletion(message) {

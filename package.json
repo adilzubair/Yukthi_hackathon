@@ -1,11 +1,12 @@
 {
   "name": "yukthi_hackathon",
   "version": "1.0.0",
-  "description": "This repository contains the project built during the Yukthi'24 Hackathon",
+  "description": "",
   "main": "main.js",
   "scripts": {
     "start": "node ."
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
