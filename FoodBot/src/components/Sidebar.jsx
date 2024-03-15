@@ -6,8 +6,8 @@ const Sidebar = () => {
 
   // Function to determine the style of each NavLink
   const getNavLinkClass = ({ isActive }) => {
-    return `block text-lg px-4 py-3 rounded hover:bg-purple-700 ${
-      isActive ? 'bg-purple-600 text-white' : 'text-purple-200'
+    return `block text-lg px-4 py-3 rounded hover:bg-orange-700 ${
+      isActive ? 'bg-orange-600 text-white' : 'text-orange-200'
     }`;
   };
 
@@ -21,7 +21,7 @@ const Sidebar = () => {
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="px-6 py-4">
-            <span className="text-2xl font-bold text-purple-300">FoodBot</span>
+            <span className="text-2xl font-bold text-orange-300">FoodBot</span>
           </div>
           <nav className="mt-10">
             <NavLink to="/dashboard/overview" className={getNavLinkClass}>Overview</NavLink>
@@ -49,7 +49,7 @@ const Sidebar = () => {
           </nav>
         </div>
         <div className="px-6 py-4">
-          <span className="text-sm text-purple-300">Footer Content</span>
+          <span className="text-sm text-orange-300">Footer Content</span>
           {/* Additional footer content */}
         </div>
       </div>

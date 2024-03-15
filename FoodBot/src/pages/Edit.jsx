@@ -42,7 +42,7 @@ const Edit = () => {
                 type="text"
                 value={item.itemName}
                 onChange={(e) => handleChange(item.id, 'itemName', e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500"
               />
             </div>
             <div className="mb-4">
@@ -51,7 +51,7 @@ const Edit = () => {
                 type="text"
                 value={item.itemDescription}
                 onChange={(e) => handleChange(item.id, 'itemDescription', e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500"
               />
             </div>
             <div className="mb-4">
@@ -60,12 +60,12 @@ const Edit = () => {
                 type="number"
                 value={item.itemPrice}
                 onChange={(e) => handleChange(item.id, 'itemPrice', e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500"
               />
             </div>
           </div>
         ))}
-        <button type="submit" className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button type="submit" className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
           Submit All Changes
         </button>
       </form>
