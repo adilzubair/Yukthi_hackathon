@@ -5,7 +5,6 @@ const Edit = () => {
   const { menuItems, editItem } = useMenu();
   const [edits, setEdits] = useState({});
 
-  // Initialize or reset edits state whenever menuItems change
   useEffect(() => {
     const initialEdits = menuItems.reduce((acc, item) => ({
       ...acc,
@@ -25,46 +24,52 @@ const Edit = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the form from causing a page reload
+    e.preventDefault();
     Object.keys(edits).forEach(id => {
       editItem(Number(id), edits[id]);
     });
-    // Optionally, navigate away or provide feedback after submission
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold">Edit Menu Items</h2>
-      {Object.values(edits).map((item) => (
-        <div key={item.id} className="mb-4">
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              value={item.itemName}
-              onChange={(e) => handleChange(item.id, 'itemName', e.target.value)}
-            />
+    <div className="container mx-auto p-6">
+      <h2 className="text-3xl font-bold text-center mb-6">Edit Menu Items</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {Object.values(edits).map((item) => (
+          <div key={item.id} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Name:</label>
+              <input
+                type="text"
+                value={item.itemName}
+                onChange={(e) => handleChange(item.id, 'itemName', e.target.value)}
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Description:</label>
+              <input
+                type="text"
+                value={item.itemDescription}
+                onChange={(e) => handleChange(item.id, 'itemDescription', e.target.value)}
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Price:</label>
+              <input
+                type="number"
+                value={item.itemPrice}
+                onChange={(e) => handleChange(item.id, 'itemPrice', e.target.value)}
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
           </div>
-          <div>
-            <label>Description:</label>
-            <input
-              type="text"
-              value={item.itemDescription}
-              onChange={(e) => handleChange(item.id, 'itemDescription', e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Price:</label>
-            <input
-              type="number"
-              value={item.itemPrice}
-              onChange={(e) => handleChange(item.id, 'itemPrice', e.target.value)}
-            />
-          </div>
-        </div>
-      ))}
-      <button type="submit" className="mt-2">Submit All Changes</button>
-    </form>
+        ))}
+        <button type="submit" className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Submit All Changes
+        </button>
+      </form>
+    </div>
   );
 };
 
