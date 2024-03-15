@@ -5,6 +5,9 @@ import DashboardLayout from './components/DashboardLayout';
 import OverviewPage from './pages/OverviewPage';
 import OrdersPage from './pages/OrdersPage';
 import MenuPage from './pages/MenuPage';
+import View from './pages/View';
+import Add from './pages/Add';
+import Edit from './pages/Edit';
 import CustomersPage from './pages/CustomersPage';
 import SignupWrapper from './pages/signup';
 
@@ -19,6 +22,9 @@ function App() {
           <Route path="overview" element={<OverviewPage />} />
           <Route path="orders" element={<OrdersPage />} />
           <Route path="menu" element={<MenuPage />} />
+          <Route path="/dashboard/menu/view" element={<View />} />
+          <Route path="/dashboard/menu/add" element={<Add />} />
+          <Route path="/dashboard/menu/edit" element={<Edit />} />
           <Route path="customers" element={<CustomersPage />} />
           <Route path="signup" element={<SignupWrapper />} />
         </Route>
