@@ -6,6 +6,7 @@ import OverviewPage from './pages/OverviewPage';
 import OrdersPage from './pages/OrdersPage';
 import MenuPage from './pages/MenuPage';
 import CustomersPage from './pages/CustomersPage';
+import SignupWrapper from './pages/signup';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="orders" element={<OrdersPage />} />
           <Route path="menu" element={<MenuPage />} />
           <Route path="customers" element={<CustomersPage />} />
+          <Route path="signup" element={<SignupWrapper />} />
         </Route>
       </Routes>
     </Router>
