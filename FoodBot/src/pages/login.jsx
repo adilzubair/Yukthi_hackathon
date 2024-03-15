@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from '../assets/sample2.jpg'; // Add your image path here
+import backgroundImage from '../assets/sample1.jpg'; // Add your image path here
 
 const LoginPage = () => {
   const navigate = useNavigate();

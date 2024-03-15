@@ -48,10 +48,6 @@ const Sidebar = () => {
             {/* More nav items */}
           </nav>
         </div>
-        <div className="px-6 py-4">
-          <span className="text-sm text-orange-300">Footer Content</span>
-          {/* Additional footer content */}
-        </div>
       </div>
     </div>
   );
