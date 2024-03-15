@@ -1,0 +1,17 @@
+{
+  "name": "yukthi_hackathon",
+  "version": "1.0.0",
+  "description": "This repository contains the project built during the Yukthi'24 Hackathon",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.29.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.23.0"
+  }
+}
