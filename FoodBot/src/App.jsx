@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { MenuProvider } from './context/MenuContext';
 import LoginPage from './pages/login'; // Adjust the import path as necessary
 import DashboardLayout from './components/DashboardLayout';
 import OverviewPage from './pages/OverviewPage';
@@ -12,6 +13,7 @@ import CustomersPage from './pages/CustomersPage';
 
 function App() {
   return (
+    <MenuProvider>
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} /> {/* Login Page at root */}
@@ -28,6 +30,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </MenuProvider>
   );
 }
 
