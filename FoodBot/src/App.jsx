@@ -1,12 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Note "Routes" instead of "Switch"
-import LoginPage from './pages/login'; // Make sure the path matches the file name and location
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/login'; // Adjust the import path as necessary
+import DashboardLayout from './components/DashboardLayout';
+import OverviewPage from './pages/OverviewPage';
+import OrdersPage from './pages/OrdersPage';
+import MenuPage from './pages/MenuPage';
+import CustomersPage from './pages/CustomersPage';
 
 function App() {
   return (
     <Router>
-      <Routes> {/* "Routes" replaces "Switch" in react-router-dom v6+ */}
-        <Route exact path="/" element={<LoginPage />} /> 
+      <Routes>
+        <Route path="/" element={<LoginPage />} /> {/* Login Page at root */}
+        {/* Dashboard Layout and nested routes */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<OverviewPage />} /> {/* Default to Overview when "/dashboard" is accessed */}
+          <Route path="overview" element={<OverviewPage />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="menu" element={<MenuPage />} />
+          <Route path="customers" element={<CustomersPage />} />
+        </Route>
       </Routes>
     </Router>
   );
