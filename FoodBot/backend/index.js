@@ -56,7 +56,18 @@ app.get('/orders', async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
+
+  app.post('/api/orders', async (req, res) => {
+    try {
+      const newOrder = new Order(req.body);
+      await newOrder.save();
+      res.status(201).send({ message: 'Order saved successfully', orderId: newOrder._id });
+    } catch (error) {
+      res.status(400).send({ message: 'Error saving order', error });
+    }
+  });
   
+
 app.get('/menuview', async (req, res) => {
     try {
       // Query the database to get all menu items
