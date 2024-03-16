@@ -47,6 +47,16 @@ app.post("/order", async function(req, res) {
         msg: "Menu created"
     })
 })
+
+app.get('/orders', async (req, res) => {
+    try {
+      const orders = await Order.find({});
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
 app.get('/menuview', async (req, res) => {
     try {
       // Query the database to get all menu items

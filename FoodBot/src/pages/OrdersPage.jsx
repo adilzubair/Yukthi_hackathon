@@ -9,7 +9,7 @@ const OrdersPage = () => {
   useEffect(() => {
     // Replace with your actual backend API call
     const fetchOrders = async () => {
-      const response = await fetch('/api/orders');
+      const response = await fetch('http://localhost:3000/orders');
       const data = await response.json();
       setOrders(data);
     };
