@@ -29,7 +29,7 @@ const View = () => {
           <div key={item._id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
             <h3 className="text-xl font-semibold text-indigo-600 mb-2">{item.itemName}</h3>
             <p className="text-gray-700 mb-4">{item.description}</p>
-            <p className="text-lg font-bold">${item.price}</p>
+            <p className="text-lg font-bold">₹{item.price}</p>
           </div>
         ))}
       </div>

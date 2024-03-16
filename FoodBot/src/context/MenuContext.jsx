@@ -24,6 +24,14 @@ export const MenuProvider = ({ children }) => {
     setMenuItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/menuview');
+      setMenuItems(response.data);
+    } catch (error) {
+      console.error('Error fetching menu items:', error);
+    }
+  };
   return (
     <MenuContext.Provider value={{ menuItems, addItem, editItem, deleteItem }}>
       {children}

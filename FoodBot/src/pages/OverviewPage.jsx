@@ -31,17 +31,17 @@ const OverviewPage = () => {
     id: index,
     name: `Customer ${index + 1}`,
     phone: `123-456-${String(index).padStart(4, '0')}`,
-    bill: `$${(100 + index * 5).toFixed(2)}`,
+    bill: `₹${(100 + index * 5).toFixed(2)}`,
     status: index % 3 === 0 ? 'complete' : 'pending',
   }));
 
   return (
     <div className="p-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <InfoCard title="SALES" value="$24k" color="bg-white" />
+        <InfoCard title="SALES" value="₹24k" color="bg-white" />
         <InfoCard title="TOTAL CUSTOMERS" value="15" color="bg-white" />
         <InfoCard title="TASK PROGRESS" value="75.5%" color="bg-white" />
-        <InfoCard title="TOTAL PROFIT" value="$15k" color="bg-white" />
+        <InfoCard title="TOTAL PROFIT" value="₹15k" color="bg-white" />
       </div>
       <div className="flex flex-col mt-8">
         <h2 className="text-xl font-semibold mb-4">Customer List</h2>
