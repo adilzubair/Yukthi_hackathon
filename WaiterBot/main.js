@@ -3,6 +3,7 @@ const qrcode = require('qrcode-terminal');
 const fetch = import('node-fetch');
 const { OpenAI } = require('openai');
 require("dotenv").config();
+const axios = require('axios'); // Import Axios
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted if the API key is set in the environment variables
@@ -59,7 +60,19 @@ client.on('message', async msg => {
             const orderDetails = pendingOrders[msg.from];
             const orderDetailsJson = JSON.stringify(orderDetails, null, 2); // Pretty print JSON
             console.log("Order confirmed:", orderDetailsJson); // Log order in JSON format to the console
-            msg.reply(`Thank you! Your order has been confirmed with the total of $${orderDetails.total}`);
+            
+
+            try {
+                // Make a POST request to your backend endpoint (/order) with the order details
+                const response = await axios.post('http://localhost:3000/order', orderDetails);
+                console.log('Order saved:', response.data); // Log the response from the backend
+                msg.reply(`Thank you! Your order has been confirmed with the total of $${orderDetails.total}`);
+            } catch (error) {
+                console.error('Error saving order:', error);
+                msg.reply('There was an error processing your order. Please try again later.');
+            }
+            
+
             delete pendingOrders[msg.from]; // Clean up the pending order
         } else {
             msg.reply("You don't have any pending orders to confirm.");
