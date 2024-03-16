@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // mongodb+srv://kirags123:8qPEa8KTKBEh2bss@cluster0.f3qlbuo.mongodb.net/todos
 // .env
-mongoose.connect("mongodb+srv://foodbot:QbmedfD6bvxmAB2a@cluster0.9xqcfem.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://@cluster0.9xqcfem.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 const menuSchema = new mongoose.Schema({
     itemName: {
