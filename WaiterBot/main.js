@@ -4,10 +4,10 @@ const fetch = import('node-fetch');
 const { OpenAI } = require('openai');
 require("dotenv").config();
 const axios = require('axios'); // Import Axios
+const mongoose = require('mongoose');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted if the API key is set in the environment variables
-  });
+
+const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY });
 
 
 // Simulated menu items
@@ -54,14 +54,51 @@ client.on('ready', () => {
     console.log('Client is ready!');
 });
 
+
+// Define menu schema
+const menuSchema = new mongoose.Schema({
+    itemName: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
+});
+
+// Define Mongoose model
+const Menu = mongoose.model('Menu', menuSchema);
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI
+).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});
+
+
 client.on('message', async msg => {
     if (msg.body.toLowerCase().includes('menu')) {
         let menuString = "Here's our menu:\n";
-        menuItems.forEach(item => {
-            menuString += `${item.name} - $${item.price}\n`;
-        });
-        msg.reply(menuString + "\nWhat would you like to order? Just let me know in a message.");
-    } else if (msg.body.toLowerCase() === 'confirm') {
+        try {
+            const menuItems = await Menu.find(); // Fetch menu items from MongoDB
+
+            menuItems.forEach(item => {
+                menuString += `${item.itemName} - $${item.price}\n`;
+            });
+
+            msg.reply(menuString + "\nWhat would you like to order? Just let me know in a message. Please give quantity followed by item.");
+        } catch (error) {
+            console.error('Error fetching menu items:', error);
+            msg.reply("Sorry, there was an error fetching the menu items. Please try again later.");
+        }
+     } else if (msg.body.toLowerCase() === 'confirm') {
         if (pendingOrders[msg.from]) {
             const orderDetails = pendingOrders[msg.from];
             const orderDetailsJson = JSON.stringify(orderDetails, null, 2); // Pretty print JSON
@@ -86,26 +123,42 @@ client.on('message', async msg => {
     } else {
         let orderSummary = [];
         let total = 0;
-        // Enhanced parsing logic to handle multiple quantities
-        const orderRegex = /(\d+)\s*(pizza|soda)s?/gi; // Adjust regex as needed
+        const orderRegex = /(\d+)\s*(pizza|dosa|coffee|biriyani)s?/gi; // Enhanced regex to include item names directly
+        
         let match;
         while ((match = orderRegex.exec(msg.body.toLowerCase())) !== null) {
             const quantity = parseInt(match[1], 10);
-            const itemName = match[2].charAt(0).toUpperCase() + match[2].slice(1); // Capitalize first letter
-            const itemPrice = menuItems.find(item => item.name.toLowerCase() === match[2]).price;
-            total += quantity * itemPrice;
-            orderSummary.push({ item: itemName, quantity: quantity, price: itemPrice, total: quantity * itemPrice });
+            const itemName = match[2]; // Keep item name in lower case for database matching
+
+            try {
+                // Fetch the item price from your database
+                const menuItem = await Menu.findOne({ itemName: new RegExp('^' + itemName + '$', 'i') });
+                if (menuItem) {
+                    const itemPrice = menuItem.price;
+                    total += quantity * itemPrice;
+                    orderSummary.push({ item: menuItem.itemName, quantity: quantity, price: itemPrice, total: quantity * itemPrice });
+                } else {
+                    msg.reply(`Sorry, we couldn't find "${itemName}" in our menu.`);
+                    return; // Exit if an item is not found
+                }
+            } catch (error) {
+                console.error('Error fetching item from DB:', error);
+                msg.reply('Sorry, there was an error processing your order. Please try again.');
+                return; // Exit on error
+            }
         }
 
         if (orderSummary.length > 0) {
             let orderSummaryText = "Here's your order summary:\n";
             orderSummary.forEach(item => {
+                // Corrected usage of template literals
                 orderSummaryText += `${item.quantity} x ${item.item} - $${item.total}\n`;
             });
             orderSummaryText += `Total: $${total}\nReply with "confirm" to place your order.`;
             pendingOrders[msg.from] = { items: orderSummary, total: total }; // Temporarily store the order
             msg.reply(orderSummaryText);
         } else {
+            // This part remains unchanged - fallback to OpenAI or any other logic you have for non-order messages
             const replyText = await fetchReplyFromOpenAI(msg.body);
             msg.reply(replyText);
         }
