@@ -6,6 +6,7 @@ const app = express();
 const axios = require('axios');
 
 app.use(express.json());
+
 app.use(cors());
 
 
@@ -35,23 +36,38 @@ app.post("/order", async function(req, res) {
     const createPayload = req.body;
     const parsedPayload = createMenu.safeParse(createPayload);
 
-    if (!parsedPayload.success) {
-        res.status(411).json({
-            msg: "You sent the wrong inputs",
-        })
-        return;
-    }
+   
     // put it in mongodb
     await Order.create({
-        tableNo: createPayload.tableNo,
-          i: createPayload.price,
-          description: createPayload.description
+        items: createPayload.items,
+        total: createPayload.total
     })
 
     res.json({
         msg: "Menu created"
     })
 })
+
+app.get('/orders', async (req, res) => {
+    try {
+      const orders = await Order.find({});
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.post('/api/orders', async (req, res) => {
+    try {
+      const newOrder = new Order(req.body);
+      await newOrder.save();
+      res.status(201).send({ message: 'Order saved successfully', orderId: newOrder._id });
+    } catch (error) {
+      res.status(400).send({ message: 'Error saving order', error });
+    }
+  });
+  
+
 app.get('/menuview', async (req, res) => {
     try {
       // Query the database to get all menu items

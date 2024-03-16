@@ -6,18 +6,17 @@ const createMenu = zod.object({
     price: zod.number()
 })
 
-const OrderItemSchema = zod.object({
-    itemId: zod.string(), // Assuming itemId is a string
-    quantity: zod.number().int().positive() // Assuming quantity is a positive integer
+const itemSchema = zod.object({
+    item: zod.string(),
+    quantity: zod.number(),
+    price: zod.number(),
+    total: zod.number(),
   });
-
-const createOrder = zod.object({
-    itableNo: zod.number(),
-    iitems: zod.array(OrderItemSchema),
-    totalPrice: zod.number()
-
-
-})
+  
+  const createOrder = zod.object({
+    items: zod.array(itemSchema),
+    total: zod.number(),
+  });
 
 module.exports = {
     createMenu: createMenu,
