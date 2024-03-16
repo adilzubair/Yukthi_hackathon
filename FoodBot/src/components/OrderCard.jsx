@@ -1,20 +1,18 @@
 // OrderCard.jsx
+import React from 'react';
+
 const OrderCard = ({ order }) => {
-    return (
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Order #{order.id}</h2>
-        <p className="text-gray-600 mb-4">{order.text}</p>
-        {/* Additional order details */}
-        <div className="flex justify-between items-center">
-          {/* You can add buttons or other actions here */}
-          <span className="text-sm text-gray-500">More details</span>
-          <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-            View
-          </button>
+  return (
+    <div className="border p-4 rounded-md shadow">
+      <h2 className="text-xl font-semibold mb-2">Order #{order.id}</h2>
+      {order.items.map((item, index) => (
+        <div key={index} className="mb-2">
+          <p>{item.item}: {item.quantity} x ${item.price.toFixed(2)}</p>
         </div>
-      </div>
-    );
-  };
-  
-  export default OrderCard;
-  
+      ))}
+      <p className="mt-4 font-bold">Total: ${order.total.toFixed(2)}</p>
+    </div>
+  );
+};
+
+export default OrderCard;

@@ -22,21 +22,17 @@ const menuSchema = new mongoose.Schema({
   const Menu = mongoose.model('Menu', menuSchema);
 
   const orderSchema = new mongoose.Schema({
-    tableNo: {
-      type: Number,
-      required: true
-    },
     items: [{
-        itemId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Menu' // Reference to the Item model
-        },
-        quantity: Number
+        item:  String,
+        quantity: Number,
+        price: Number,
+        total: Number
       }],
-    totalPrice: {
-      type: Number,
-      required: true
-    }
+   
+    total: {
+        type: Number,
+        required: true
+      }
   });
 
   mongoose.connection.on('connected', () => {
