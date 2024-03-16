@@ -14,11 +14,15 @@ const Add = () => {
       // Make a POST request to your backend endpoint (/menu) with the item data
       const description=itemDescription;
       const price=itemPrice;
-      const response = await axios.post('https://localhost:3000/menu', {
-        itemName,
-        description,
-        price
-      });
+      const response = await axios({
+        method: 'post',
+        url: 'https://localhost:3000/menu',
+        data: {
+          itemName: itemName,
+          description: itemDescription,
+          price: itemPrice
+        }
+      })
 
     } catch (error) {
       console.error('Error adding item:', error);

@@ -6,6 +6,7 @@ const app = express();
 const axios = require('axios');
 
 app.use(express.json());
+
 app.use(cors());
 
 
@@ -35,17 +36,11 @@ app.post("/order", async function(req, res) {
     const createPayload = req.body;
     const parsedPayload = createMenu.safeParse(createPayload);
 
-    if (!parsedPayload.success) {
-        res.status(411).json({
-            msg: "You sent the wrong inputs",
-        })
-        return;
-    }
+   
     // put it in mongodb
     await Order.create({
-        tableNo: createPayload.tableNo,
-          i: createPayload.price,
-          description: createPayload.description
+        items: createPayload.items,
+        total: createPayload.total
     })
 
     res.json({
